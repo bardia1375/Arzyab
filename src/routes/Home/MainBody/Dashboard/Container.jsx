@@ -36,7 +36,7 @@ import DateNavHeader from "components/DateNavHeader/DateNavHeader";
 
 let dayLimit = 60;
 let monthLimit = 12;
-export const Container = ({setShowMap}) => {
+export const Container = ({ setShowMap }) => {
   // States && Hooks
   const dispatch = useDispatch();
   const { Token } = useSelector((state) => state.auth);
@@ -3446,7 +3446,7 @@ export const Container = ({setShowMap}) => {
                 width: "100%",
               }}
             >
-              <MapComponent height="40vh" date={date} setShowMap={setShowMap}/>
+              <MapComponent height="40vh" date={date} setShowMap={setShowMap} />
             </NeumorphicBox>
             <StatusCard
               selectedTitle={selectedTitle}
