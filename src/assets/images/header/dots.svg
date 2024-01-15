@@ -1,0 +1,12 @@
+<svg id="Component_335_2" data-name="Component 335 – 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="37" height="17" viewBox="0 0 37 17">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="transparent"/>
+      <stop offset="1" stop-color="transparent"/>
+    </linearGradient>
+  </defs>
+  <rect id="Rectangle_492" data-name="Rectangle 492" width="37" height="17" fill="url(#linear-gradient)"/>
+  <circle id="Ellipse_49" data-name="Ellipse 49" cx="3" cy="3" r="3" transform="translate(15.141 6)" fill="#fff"/>
+  <circle id="Ellipse_51" data-name="Ellipse 51" cx="3" cy="3" r="3" transform="translate(24.141 6)" fill="#fff"/>
+  <circle id="Ellipse_50" data-name="Ellipse 50" cx="3" cy="3" r="3" transform="translate(6.141 6)" fill="#fff"/>
+</svg>

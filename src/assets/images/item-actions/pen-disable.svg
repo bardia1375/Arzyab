@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+  <g id="Group_1378" data-name="Group 1378" transform="translate(-48.5 -4.5)">
+    <g id="Group_1376" data-name="Group 1376">
+      <path id="Path_1073" data-name="Path 1073" d="M12,0A12,12,0,1,1,0,12,12,12,0,0,1,12,0Z" transform="translate(49 5)" fill="#cbcbcb" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+    </g>
+    <path id="_4_Pencil" data-name="4 Pencil" d="M.7,14.745a.7.7,0,0,1-.678-.884L1.4,8.7a1.788,1.788,0,0,1,.456-.787l7.4-7.4a1.756,1.756,0,0,1,2.482,0L14.23,3a1.757,1.757,0,0,1,0,2.482l-7.4,7.408a1.772,1.772,0,0,1-.786.453L.884,14.721A.7.7,0,0,1,.7,14.745Zm9.8-12.7a.7.7,0,0,0-.5.2L3.268,8.995a.7.7,0,1,0,.993.994L11,3.245a.7.7,0,0,0-.5-1.2Z" transform="translate(53.628 9.627)" fill="#fff" stroke="rgba(0,0,0,0)" stroke-miterlimit="10" stroke-width="1"/>
+  </g>
+</svg>

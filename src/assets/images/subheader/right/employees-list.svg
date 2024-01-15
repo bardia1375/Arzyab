@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28.143" height="28.143" viewBox="0 0 28.143 28.143"><defs><linearGradient id="a" x1="1.544" y1="-0.153" x2="0.297" y2="1" gradientUnits="objectBoundingBox"><stop offset="0" stop-color="#75c9db"/>
+<stop offset="1" stop-color="#04165d"/></linearGradient>
+</defs><path d="M17,30.571A13.571,13.571,0,0,1,7.4,7.4,13.571,13.571,0,0,1,26.6,26.6,13.482,13.482,0,0,1,17,30.571ZM16.855,17a8.087,8.087,0,0,0-6.935,3.96,1.693,1.693,0,0,0,.165,1.877,9.047,9.047,0,0,0,13.831,0,1.691,1.691,0,0,0,.164-1.877A8.084,8.084,0,0,0,17.146,17h-.291ZM17,7.952a3.676,3.676,0,1,0,3.676,3.676A3.68,3.68,0,0,0,17,7.952Z" transform="translate(-2.928 -2.928)" stroke="rgba(0,0,0,0)" stroke-width="1" fill="url(#a)"/>
+</svg>

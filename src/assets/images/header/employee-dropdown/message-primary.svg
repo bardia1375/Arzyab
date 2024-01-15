@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30.068" height="29.895" viewBox="0 0 30.068 29.895">
+  <defs>
+    <linearGradient id="linear-gradient" x1="1.544" y1="-0.153" x2="0.297" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#75c9db"/>
+      <stop offset="1" stop-color="#04165d"/>
+    </linearGradient>
+  </defs>
+  <g id="_Icons_14_Comment_5" data-name="_Icons / 14 Comment_5" transform="translate(0.666 0.5)">
+    <path id="_14_Comment_5" data-name="14 Comment_5" d="M14.439,28.9h0a14.431,14.431,0,0,1-7.631-2.181L1.929,28.778a1.376,1.376,0,0,1-1.8-1.8L2.19,22.1A14.448,14.448,0,0,1,14.43,0h.01a14.448,14.448,0,1,1,0,28.9Zm-6.2-12.727a1.376,1.376,0,1,0,0,2.752h8.944a1.376,1.376,0,0,0,0-2.752Zm0-6.192a1.376,1.376,0,1,0,0,2.752H20.622a1.376,1.376,0,1,0,0-2.752Z" transform="translate(0 0)" stroke="rgba(0,0,0,0)" stroke-width="1" fill="url(#linear-gradient)"/>
+  </g>
+</svg>

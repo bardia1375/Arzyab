@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16.855" height="18" viewBox="0 0 16.855 18">
+  <g id="Group_1853" data-name="Group 1853" transform="translate(-1461.46 -169.888)">
+    <g id="list" transform="translate(1461.46 169.888)">
+      <path id="Path_1089" data-name="Path 1089" d="M6.654,11H17.116c.361,0,.654.448.654,1s-.293,1-.654,1H6.654C6.293,13,6,12.552,6,12S6.293,11,6.654,11Z" transform="translate(-6 -3)" fill="#fff"/>
+      <path id="Path_1090" data-name="Path 1090" d="M6.654,11H17.116c.361,0,.654.448.654,1s-.293,1-.654,1H6.654C6.293,13,6,12.552,6,12S6.293,11,6.654,11Z" transform="translate(-6 -10)" fill="#fff"/>
+      <path id="Path_1091" data-name="Path 1091" d="M6.654,11H17.116c.361,0,.654.448.654,1s-.293,1-.654,1H6.654C6.293,13,6,12.552,6,12S6.293,11,6.654,11Z" transform="translate(-6 4)" fill="#fff"/>
+      <ellipse id="Ellipse_106" data-name="Ellipse 106" cx="2" cy="2" rx="2" ry="2" transform="translate(12.855)" fill="#fff"/>
+      <ellipse id="Ellipse_107" data-name="Ellipse 107" cx="2" cy="2" rx="2" ry="2" transform="translate(12.855 7)" fill="#fff"/>
+      <ellipse id="Ellipse_108" data-name="Ellipse 108" cx="2" cy="2" rx="2" ry="2" transform="translate(12.855 14)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

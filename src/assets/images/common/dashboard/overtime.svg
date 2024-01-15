@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30.567" height="21.324" viewBox="0 0 30.567 21.324">
+  <g id="Group_1413" data-name="Group 1413" transform="translate(-1386.022 -691.801)">
+    <path id="_3_Watch" data-name="3 Watch" d="M10.662,21.324A10.663,10.663,0,1,1,21.324,10.662,10.674,10.674,0,0,1,10.662,21.324Zm0-17.771a.889.889,0,0,0-.888.889V9.774a1.779,1.779,0,0,0,1.777,1.777h4a.888.888,0,1,0,0-1.777h-4V4.442A.89.89,0,0,0,10.662,3.554Z" transform="translate(1395.265 691.801)" fill="#666"/>
+    <g id="Ellipse_102" data-name="Ellipse 102" transform="translate(1386.022 696.224)" fill="#fff" stroke="#666" stroke-width="1">
+      <circle cx="8.319" cy="8.319" r="8.319" stroke="none"/>
+      <circle cx="8.319" cy="8.319" r="7.819" fill="none"/>
+    </g>
+    <line id="Line_245" data-name="Line 245" x1="6.47" y2="6.47" transform="translate(1389.766 704.542) rotate(-45)" fill="none" stroke="#666" stroke-linecap="round" stroke-width="1.5"/>
+    <line id="Line_246" data-name="Line 246" x2="6.47" y2="6.47" transform="translate(1389.766 704.542) rotate(-45)" fill="none" stroke="#666" stroke-linecap="round" stroke-width="1.5"/>
+  </g>
+</svg>

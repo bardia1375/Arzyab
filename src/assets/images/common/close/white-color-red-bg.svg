@@ -1,0 +1,12 @@
+<svg id="Component_403_1" data-name="Component 403 – 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25.424" height="25.422" viewBox="0 0 25.424 25.422">
+  <defs>
+    <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ff8080"/>
+      <stop offset="1" stop-color="#ff4d4d"/>
+    </radialGradient>
+  </defs>
+  <ellipse id="Ellipse_25" data-name="Ellipse 25" cx="12.711" cy="12.711" rx="12.711" ry="12.711" fill="#fff"/>
+  <g id="_Icons_23_Close" data-name="_Icons / 23 Close">
+    <path id="_23_Close" data-name="23 Close" d="M12.712,25.422A12.711,12.711,0,1,1,25.424,12.711,12.726,12.726,0,0,1,12.712,25.422Zm0-10.851h0l3.339,3.373a1.326,1.326,0,1,0,1.875-1.876L14.588,12.7l3.374-3.341a1.35,1.35,0,1,0-1.91-1.909L12.712,10.82,9.373,7.447a1.35,1.35,0,1,0-1.91,1.909L10.836,12.7,7.463,16.036a1.36,1.36,0,0,0-.4.955,1.346,1.346,0,0,0,.4.955,1.36,1.36,0,0,0,.955.395,1.345,1.345,0,0,0,.955-.395l3.339-3.373Z" transform="translate(0 0)" fill="url(#radial-gradient)"/>
+  </g>
+</svg>

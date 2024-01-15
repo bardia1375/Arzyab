@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="39.908" height="27.84" viewBox="0 0 39.908 27.84">
+  <g id="Group_1414" data-name="Group 1414" transform="translate(-1386.022 -691.801)">
+    <path id="_3_Watch" data-name="3 Watch" d="M13.919,27.84A13.921,13.921,0,1,1,27.84,13.919,13.936,13.936,0,0,1,13.919,27.84Zm0-23.2A1.161,1.161,0,0,0,12.76,5.8v6.96a2.322,2.322,0,0,0,2.32,2.32H20.3a1.16,1.16,0,1,0,0-2.32H15.08V5.8A1.162,1.162,0,0,0,13.919,4.639Z" transform="translate(1398.089 691.801)" fill="#37b3b8"/>
+    <g id="Ellipse_102" data-name="Ellipse 102" transform="translate(1386.022 697.575)" fill="#e7f9fa" stroke="#37b3b8" stroke-width="1">
+      <circle cx="10.861" cy="10.861" r="10.861" stroke="none"/>
+      <circle cx="10.861" cy="10.861" r="10.361" fill="none"/>
+    </g>
+    <g id="Group_1415" data-name="Group 1415" transform="translate(1393.064 703.091)">
+      <path id="Path_1084" data-name="Path 1084" d="M5.344,5.025,0,0" transform="translate(0 5.344) rotate(-90)" fill="none" stroke="#37b3b8" stroke-linecap="round" stroke-width="1.5"/>
+      <path id="Path_1085" data-name="Path 1085" d="M5.344,0,0,5.025" transform="translate(5.025 5.344) rotate(90)" fill="none" stroke="#37b3b8" stroke-linecap="round" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>

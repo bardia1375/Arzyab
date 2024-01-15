@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="33" height="32" viewBox="0 0 33 32">
+  <defs>
+    <linearGradient id="linear-gradient" x1="1.544" y1="-0.153" x2="0.297" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#75c9db"/>
+      <stop offset="1" stop-color="#04165d"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_800" data-name="Group 800" transform="translate(-1661.033 -441.323)">
+    <line id="Line_107" data-name="Line 107" x2="9.608" y2="11.53" transform="translate(1670.693 446.4)" fill="none" stroke="#183573" stroke-width="1"/>
+    <line id="Line_108" data-name="Line 108" x1="9.608" y2="10.569" transform="translate(1680.302 447.361)" fill="none" stroke="#183573" stroke-width="1"/>
+    <line id="Line_109" data-name="Line 109" x1="6.726" y1="11.53" transform="translate(1680.302 457.93)" fill="none" stroke="#183573" stroke-width="1"/>
+    <line id="Line_110" data-name="Line 110" y1="6.726" x2="14.413" transform="translate(1665.889 457.93)" fill="none" stroke="#183573" stroke-width="1"/>
+    <circle id="Ellipse_63" data-name="Ellipse 63" cx="7" cy="7" r="7" transform="translate(1672.533 450.823)" stroke="rgba(0,0,0,0)" stroke-width="1" fill="url(#linear-gradient)"/>
+    <circle id="Ellipse_64" data-name="Ellipse 64" cx="4.5" cy="4.5" r="4.5" transform="translate(1666.533 441.823)" stroke="rgba(0,0,0,0)" stroke-width="1" fill="url(#linear-gradient)"/>
+    <circle id="Ellipse_65" data-name="Ellipse 65" cx="3.5" cy="3.5" r="3.5" transform="translate(1686.533 443.823)" stroke="rgba(0,0,0,0)" stroke-width="1" fill="url(#linear-gradient)"/>
+    <circle id="Ellipse_66" data-name="Ellipse 66" cx="4" cy="4" r="4" transform="translate(1661.533 460.823)" stroke="rgba(0,0,0,0)" stroke-width="1" fill="url(#linear-gradient)"/>
+    <circle id="Ellipse_67" data-name="Ellipse 67" cx="4" cy="4" r="4" transform="translate(1682.533 464.823)" stroke="rgba(0,0,0,0)" stroke-width="1" fill="url(#linear-gradient)"/>
+  </g>
+</svg>

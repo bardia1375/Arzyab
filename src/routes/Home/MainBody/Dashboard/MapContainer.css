@@ -1,0 +1,32 @@
+/* Custom styles for the map container */
+.leaflet-container {
+  height: 400px;
+  width: 100%;
+}
+
+/* Custom styles for the circular marker */
+.custom-circular-marker {
+  /* Ensure the image covers the marker area without distortion */
+  width: 1000px;
+  height: auto;
+  /* Center the image in the marker */
+  display: block;
+  margin: auto;
+  /* Border and other styles can be applied here */
+}
+
+/* You can also style the marker's popup if needed */
+.leaflet-popup-content-wrapper {
+  /* Add your custom popup styles here */
+}
+
+.leaflet-popup-content {
+  /* Adjust the popup interior styling here if necessary */
+}
+
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}

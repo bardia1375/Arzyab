@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="38" height="13" viewBox="0 0 38 13">
+  <defs>
+    <linearGradient id="linear-gradient" x1="1.544" y1="-0.153" x2="0.297" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#75c9db"/>
+      <stop offset="1" stop-color="#04165d"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_1900" data-name="Group 1900" transform="translate(-1451.333 -198.894)">
+    <line id="Line_308" data-name="Line 308" x2="29" transform="translate(1456.333 205.894)" fill="none" stroke="#173573" stroke-width="2"/>
+    <circle id="Ellipse_116" data-name="Ellipse 116" cx="5" cy="5" r="5" transform="translate(1451.833 200.394)" stroke="rgba(0,0,0,0)" stroke-miterlimit="10" stroke-width="1" fill="url(#linear-gradient)"/>
+    <circle id="Ellipse_117" data-name="Ellipse 117" cx="6" cy="6" r="6" transform="translate(1465.833 199.394)" stroke="rgba(0,0,0,0)" stroke-miterlimit="10" stroke-width="1" fill="url(#linear-gradient)"/>
+    <circle id="Ellipse_118" data-name="Ellipse 118" cx="4" cy="4" r="4" transform="translate(1480.833 201.394)" stroke="rgba(0,0,0,0)" stroke-miterlimit="10" stroke-width="1" fill="url(#linear-gradient)"/>
+  </g>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25" height="25" viewBox="0 0 25 25">
+  <defs>
+    <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#4af3f8"/>
+      <stop offset="0.866" stop-color="#37b3b8"/>
+      <stop offset="1" stop-color="#37b3b8"/>
+    </radialGradient>
+  </defs>
+  <g id="Group_2000" data-name="Group 2000" transform="translate(-72.5 -5.681)">
+    <g id="Component_475_3" data-name="Component 475 – 3" transform="translate(73 6.181)">
+      <circle id="Ellipse_119" data-name="Ellipse 119" cx="12" cy="12" r="12" stroke="rgba(0,0,0,0)" stroke-width="1" fill="url(#radial-gradient)"/>
+      <g id="Group_1999" data-name="Group 1999">
+        <path id="inbox-in" d="M4.679,5.494a.642.642,0,0,1,.907-.907L7.058,6.058V2.383a.642.642,0,1,1,1.283,0V6.058L9.812,4.587a.642.642,0,0,1,.907.907L8.606,7.607a1.279,1.279,0,0,1-.9.375H7.693a1.279,1.279,0,0,1-.9-.375L4.679,5.494Zm8.794,2.03H11.549a1.284,1.284,0,0,0-1.283,1.283A1.284,1.284,0,0,1,8.982,10.09H6.416A1.284,1.284,0,0,1,5.133,8.807,1.284,1.284,0,0,0,3.85,7.524H1.925A1.927,1.927,0,0,0,0,9.449v2.566a3.212,3.212,0,0,0,3.208,3.208H12.19A3.212,3.212,0,0,0,15.4,12.015V9.449A1.927,1.927,0,0,0,13.474,7.524Z" transform="translate(19.699 20.925) rotate(180)" fill="#f5f5f5"/>
+      </g>
+    </g>
+  </g>
+</svg>
