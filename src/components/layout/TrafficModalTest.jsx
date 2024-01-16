@@ -22,7 +22,8 @@ export const TrafficModalTest = ({
   trafficModal,
   loc,
   loader,
-  setTakeImage
+  setTakeImage,
+  setForm
 }) => {
   // Codes of companies which can use camera option
   const codeList = [12345];
@@ -272,12 +273,14 @@ export const TrafficModalTest = ({
                     dispatch(setTraffic(false));
                     setTrafficModal(false);
                     successMessage(".تردد شما با موفقیت ثبت شد");
+                    setForm(3)
                   } else {
                     setLoading(false);
                     loader(false);
                     dispatch(setTraffic(false));
                     setTrafficModal(false);
-                    errorMessage(res.data.data.notice.message);
+                    successMessage(".عکس شما با موفقیت ثبت شد");
+                    setForm(3)
                   }
                 });
             }

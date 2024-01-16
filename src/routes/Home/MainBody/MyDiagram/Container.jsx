@@ -13,6 +13,8 @@ import DrawImage from "./DrawImage";
 import OpenJob from "./OpenJob";
 import MyContextProvider from "./context/MyContextProvider";
 import MyContext from "./context/MyContext";
+import LoadingSpinner from "components/common/publicTable/loading/LoadingSpinner";
+import { TrafficModalTest } from "components/layout/TrafficModalTest";
 export const MyDiagram = () => {
   // Data for the pie chart
   const today = new Date();
@@ -27,6 +29,27 @@ export const MyDiagram = () => {
   const Attendance = Users.map((el) => el.Attendance);
   console.log("infoinfo", Attendance);
   const navigate = useNavigate();
+  moment.loadPersian({ dialect: "persian-modern" });
+  const ref = useRef();
+
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(0);
+
+  const info = JSON.parse(localStorage.getItem("users"));
+  
+  const [trafficModal, setTrafficModal] = useState(true);
+  const [loadingCheck, setLoadingCheck] = useState(false);
+  const [locations, setLocations] = useState({});
+  const [takeImage, setTakeImage] = useState("");
+  useEffect(() => {
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 5000);
+  }, [takeImage]);
+ 
+  console.log("takeImage", takeImage);
   let leave = 0;
   let presence = 0;
   let mission = 0;
@@ -238,16 +261,76 @@ export const MyDiagram = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <Button onClick={() => setForm(2)}>ثبت خرابی</Button>
+                  <Button onClick={() => setForm()}>ثبت خرابی</Button>
                   <Button onClick={() => setForm(0)}> پایان</Button>
                 </div>
               </Card>
             ) : form == 2 ? (
+              <div
+              style={{
+                width: "100%",
+                display: "flex",
+                width: "100%",
+                alignItems: "flex-end",
+                justifyContent: "center",
+              }}
+            >
+              {/* {returnModal && (
+                <ReturnModal
+                  type={"مرخصی"}
+                  ReturnHandler={fetchReturnData}
+                  items={returnModal}
+                  onClose={setReturnModal}
+                />
+              )} */}{" "}
+              {trafficModal && (
+                <TrafficModalTest
+                  setTakeImage={setTakeImage}
+                  setTrafficModal={setTrafficModal}
+                  trafficModal={trafficModal}
+                  loc={locations}
+                  loader={setLoadingCheck}
+                  setForm={setForm}
+                />
+              )}
+              {/* <Card height="calc(100vh - 250px)" margin="24px 0 0 0">
+                <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+                  {true && (
+                    <img
+                      src={takeImage}
+                      alt="Captured Preview"
+                      style={{ width: "100%", marginTop: "10px" }}
+                    />
+                  )}
+                  {loading ? (
+                    <LoadingSpinner />
+                  ) : (
+                    <Card color="orange">
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          margin: "24px",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <div>عکس گرفته شده مطابقت دارد با:</div>
+                        <div>کاربر: سید بردیا شمسی</div>
+                        <div>با شماره پرسنلی: 440</div>
+                      </div>
+                    </Card>
+                  )}
+                </div>
+              </Card> */}
+            </div>
+            ) : form == 3 ? (
               <DrawImage
                 setBardia={setBardia}
                 imageData={imageData}
                 setOrderInformation={setOrderInformation}
                 orderInformation={orderInformation}
+                takeImage={takeImage}
               />
             ) : (
               <Card height="calc(100vh - 300px)"></Card>
@@ -255,6 +338,7 @@ export const MyDiagram = () => {
           </>
         }
       </div>
+
     </MyContextProvider>
   );
 };

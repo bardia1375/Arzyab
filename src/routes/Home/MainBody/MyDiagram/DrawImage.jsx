@@ -6,13 +6,14 @@ function DrawImage({
   imageData,
   orderInformation,
   setOrderInformation,
+  takeImage
 }) {
     const { myValue, setMyValue ,bardia,setBardia} = useContext(MyContext);
   console.log("myValuemyValue",myValue);
   const canvasRef = useRef(null);
   const isDrawingRef = useRef(false);
   const [isEraser, setIsEraser] = useState(false);
-  const [ImageData, setImageData] = useState(imageData);
+  const [ImageData, setImageData] = useState(takeImage);
   console.log("orderInformation", orderInformation);
   useEffect(() => {
     // Retrieve the image data from local storage
