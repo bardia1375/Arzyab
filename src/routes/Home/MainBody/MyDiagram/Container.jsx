@@ -1,21 +1,27 @@
 import DateNavHeader from "components/DateNavHeader/DateNavHeader";
 import Card from "components/common/Card";
 import moment from "moment-jalaali";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import MapComponent from "../Dashboard/MapComponent";
 import { Button } from "components/common";
 import imageData from "../../../../assets/images/header/user.png";
+import DoneJob from "./DoneJob";
+import DrawImage from "./DrawImage";
+import OpenJob from "./OpenJob";
+import MyContextProvider from "./context/MyContextProvider";
+import MyContext from "./context/MyContext";
 export const MyDiagram = () => {
   // Data for the pie chart
   const today = new Date();
   const [ImageData, setImageData] = useState(imageData);
+  const [showImage, setShowImage] = useState(false);
   console.log("");
+
   const [date, setDate] = useState(moment(today).format("jYYYY-jMM-jDD"));
   const clickPointsRef = useRef([]);
-
   const x = JSON.parse(localStorage.getItem("users"));
   const Users = x?.filter((res) => res?.Date == date)[0]?.persons;
   const Attendance = Users.map((el) => el.Attendance);
@@ -137,25 +143,36 @@ export const MyDiagram = () => {
     ...dateInformationItem,
     ...timeInformation[index],
   }));
-  const orderInformation = [
-    {
-      id: 1,
-      day: "چهارشنبه",
-      date: "4 بهمن",
-      bg: "#fff",
-      text: "ساعت 12 تا 15",
-    },
-    {
-      id: 1,
-      day: "سه‌شنبه",
-      date: "3 بهمن",
-      bg: "#fff",
-      text: "ساعت 12 تا 15",
-    },
-  ];
+  const [orderInformation, setOrderInformation] = useState([]);
+  const [bardia, setBardia] = useState("");
+
+  useEffect(() => {
+    setOrderInformation([
+      {
+        id: 1,
+        day: "چهارشنبه",
+        date: "4 بهمن",
+        bg: "#fff",
+        text: "ساعت 12 تا 15",
+        Latitude: "35.738829",
+        Longitude: "51.446269",
+        img: bardia,
+      },
+      {
+        id: 2,
+        day: "سه‌شنبه",
+        date: "3 بهمن",
+        bg: "#fff",
+        text: "ساعت 12 تا 15",
+        Latitude: "35.708829",
+        Longitude: "51.406269",
+        img: bardia,
+      },
+    ]);
+  }, [bardia]);
 
   console.log("orderInformation", orderInformation);
-  const [selected, setselected] = useState("جاری");
+  const [selected, setselected] = useState("درخواست‌های باز");
   const [form, setForm] = useState(0);
   const [isEraser, setIsEraser] = useState(false);
 
@@ -166,7 +183,7 @@ export const MyDiagram = () => {
   // const [imageData, setImageData] = useState("");
   const canvasRef = useRef(null);
   const isDrawingRef = useRef(false);
-  const [bardia, setBardia] = useState([]);
+
   useEffect(() => {
     // Retrieve the image data from local storage
     const savedImage = localStorage.getItem("savedImage");
@@ -175,224 +192,70 @@ export const MyDiagram = () => {
     if (savedImage) {
       setBardia(savedImage);
     }
-
-    // Draw on the canvas
-    drawOnCanvas(savedImage);
   }, []); // Empty dependency array ensures this runs once on component mount
 
-  const drawOnCanvas = (imageSrc) => {
-    const canvas = canvasRef.current;
-
-    if (!canvas) {
-      console.error("Canvas element not found.");
-      return;
-    }
-
-    const ctx = canvas.getContext("2d");
-
-    const img = new Image();
-    img.src = ImageData;
-
-    img.onload = () => {
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    };
-  };
-
-  const handleMouseDown = (event) => {
-    isDrawingRef.current = true;
-    const canvas = canvasRef.current;
-
-    if (!canvas) {
-      console.error("Canvas element not found.");
-      return;
-    }
-
-    const ctx = canvas.getContext("2d");
-    const rect = canvas.getBoundingClientRect();
-
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-  };
-
-  const handleMouseMove = (event) => {
-    if (!isDrawingRef.current) return;
-
-    const canvas = canvasRef.current;
-
-    if (!canvas) {
-      console.error("Canvas element not found.");
-      return;
-    }
-
-    const ctx = canvas.getContext("2d");
-    const rect = canvas.getBoundingClientRect();
-
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-
-    if (isEraser) {
-      // Erase pixels by clearing a rectangle
-      ctx.clearRect(x - 5, y - 5, 10, 10);
-    } else {
-      // Draw with the selected color
-      ctx.lineTo(x, y);
-      ctx.strokeStyle = "red";
-      ctx.lineWidth = 2;
-      ctx.stroke();
-    }
-  };
-
-  const handleMouseUp = () => {
-    isDrawingRef.current = false;
-  };
-  const toggleEraser = () => {
-    setIsEraser((prevIsEraser) => !prevIsEraser);
-  };
-  const saveToLocalStorage = () => {
-    const canvas = canvasRef.current;
-
-    if (!canvas) {
-      console.error("Canvas element not found.");
-      return;
-    }
-
-    const imageDataUrl = canvas.toDataURL();
-    localStorage.setItem("savedImage", imageDataUrl);
-    setImageData(imageDataUrl);
-  };
   return (
-    <div style={{ marginTop: "32px" }}>
-      {
-        <>
-          {form == 0 ? (
-            <>
-              <DateNavHeader
-                getDate={getDate}
-                getSelectedTitle={getSelectedTitle}
-              />
-              <Card height="calc(100vh - 300px)">
-                <Items>
-                  {mergedArray && selected === "درخواست‌های باز" ? (
-                    mergedArray.map((el, index) => {
-                      return (
-                        <Item>
-                          <div>
-                            <MapComponent
-                              centerMap={[el.Latitude, el.Longitude]}
+    <MyContextProvider>
+      <div style={{ marginTop: "32px" }}>
+        {
+          <>
+            {form == 0 ? (
+              <>
+                <DateNavHeader
+                  getDate={getDate}
+                  getSelectedTitle={getSelectedTitle}
+                />
+                <Card height="calc(100vh - 300px)">
+                  <Items>
+                    {orderInformation && selected === "درخواست‌های باز"
+                      ? orderInformation.map((el, index) => {
+                          return <OpenJob item={el} setForm={setForm} />;
+                        })
+                      : orderInformation.map((el, index) => {
+                          return (
+                            <DoneJob
+                              orderInformation={orderInformation}
+                              bardia={el.bardia}
+                              item={el}
+                              showImage={showImage}
+                              setShowImage={setShowImage}
                             />
-                          </div>
-                          <div>
-                            <span style={{ fontWeight: "bold" }}> آدرس : </span>
-                            {el.Address}
-                          </div>
-
-                          <div>
-                            <span style={{ fontWeight: "bold" }}>
-                              {" "}
-                              کد سفارش:{" "}
-                            </span>
-                            14502
-                          </div>
-                          <div>
-                            <span style={{ fontWeight: "bold" }}> تاریخ: </span>{" "}
-                            {el.date} 1402
-                          </div>
-                          <div>
-                            <span style={{ fontWeight: "bold" }}> زمان: </span>
-                            {`${el.day} ${el.text}`}
-                          </div>
-                          <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                            }}
-                          >
-                            <Button onClick={(el) => setForm(1)}>شروع</Button>
-                            <Button>مسیریابی</Button>
-                          </div>
-                        </Item>
-                      );
-                    })
-                  ) : form == 1 ? (
-                    orderInformation.map((el, index) => {
-                      return (
-                        <Item>
-                          <div>کد سفارش: 11273</div>
-                          <div>{el.date} 1402</div>
-
-                          <div>
-                            {`
-                  زمان: ${el.day}  ${el.text}
-                `}
-                          </div>
-                        </Item>
-                      );
-                    })
-                  ) : form == 2 ? (
-                    <div>asdas</div>
-                  ) : (
-                    <div>sdfsd</div>
-                  )}
-                </Items>
-              </Card>
-            </>
-          ) : form == 1 ? (
-            <Card height="calc(100vh - 300px)">
-              <MapComponent height="calc(100vh - 400px)" />
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "16px",
-                  marginTop: "32px",
-                  width: "100%",
-                  justifyContent: "center",
-                }}
-              >
-                <Button onClick={() => setForm(2)}>ثبت خرابی</Button>
-                <Button onClick={() => setForm(0)}> پایان</Button>
-              </div>
-            </Card>
-          ) : form == 2 ? (
-            <Card height="calc(100vh - 300px)">
-              <div>
-                <div>
-                  <button onClick={toggleEraser}>
-                    {isEraser ? "Disable Eraser" : "Enable Eraser"}
-                  </button>
-                  <button onClick={saveToLocalStorage}>
-                    Save to Local Storage
-                  </button>
+                          );
+                        })}
+                  </Items>
+                </Card>
+              </>
+            ) : form == 1 ? (
+              <Card height="calc(100vh - 300px)">
+                <MapComponent height="calc(100vh - 400px)" />
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "16px",
+                    marginTop: "32px",
+                    width: "100%",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Button onClick={() => setForm(2)}>ثبت خرابی</Button>
+                  <Button onClick={() => setForm(0)}> پایان</Button>
                 </div>
-                {true ? (
-                  <div>
-                    <canvas
-                      ref={canvasRef}
-                      width="400"
-                      height="400"
-                      style={{ border: "1px solid black" }}
-                      onMouseDown={handleMouseDown}
-                      onMouseMove={handleMouseMove}
-                      onMouseUp={handleMouseUp}
-                      onMouseOut={handleMouseUp}
-                    />
-
-                    {/* <img src={bardia} width="240px" alt="Saved Image" /> */}
-                  </div>
-                ) : (
-                  <p>No image available</p>
-                )}
-              </div>
-            </Card>
-          ) : (
-            <Card height="calc(100vh - 300px)">asdas</Card>
-          )}
-        </>
-      }
-    </div>
+              </Card>
+            ) : form == 2 ? (
+              <DrawImage
+                setBardia={setBardia}
+                imageData={imageData}
+                setOrderInformation={setOrderInformation}
+                orderInformation={orderInformation}
+              />
+            ) : (
+              <Card height="calc(100vh - 300px)"></Card>
+            )}
+          </>
+        }
+      </div>
+    </MyContextProvider>
   );
 };
 export const Items = styled.div`
