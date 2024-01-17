@@ -15,6 +15,7 @@ import MyContextProvider from "./context/MyContextProvider";
 import MyContext from "./context/MyContext";
 import LoadingSpinner from "components/common/publicTable/loading/LoadingSpinner";
 import { TrafficModalTest } from "components/layout/TrafficModalTest";
+import DetailJob from "./DetailJob";
 export const MyDiagram = () => {
   // Data for the pie chart
   const today = new Date();
@@ -26,8 +27,6 @@ export const MyDiagram = () => {
   const clickPointsRef = useRef([]);
   const x = JSON.parse(localStorage.getItem("users"));
   const Users = x?.filter((res) => res?.Date == date)[0]?.persons;
-  const Attendance = Users.map((el) => el.Attendance);
-  console.log("infoinfo", Attendance);
   const navigate = useNavigate();
   moment.loadPersian({ dialect: "persian-modern" });
   const ref = useRef();
@@ -36,7 +35,7 @@ export const MyDiagram = () => {
   const [page, setPage] = useState(0);
 
   const info = JSON.parse(localStorage.getItem("users"));
-  
+
   const [trafficModal, setTrafficModal] = useState(true);
   const [loadingCheck, setLoadingCheck] = useState(false);
   const [locations, setLocations] = useState({});
@@ -48,111 +47,7 @@ export const MyDiagram = () => {
       setLoading(false);
     }, 5000);
   }, [takeImage]);
- 
-  console.log("takeImage", takeImage);
-  let leave = 0;
-  let presence = 0;
-  let mission = 0;
-  let absence = 0;
-  for (let index = 0; index < Attendance.length; index++) {
-    if (Attendance[index] === "مرخصی") {
-      leave++;
-      continue;
-    }
-    if (Attendance[index] === "حضور") {
-      presence++;
-      continue;
-    }
-    if (Attendance[index] === "ماموریت") {
-      mission++;
-      continue;
-    }
-    if (Attendance[index] === "غیبت") {
-      absence++;
-      continue;
-    }
-  }
 
-  const chartData = {
-    // series: [leave, presence, mission, absence],
-    series: [absence, presence, leave, mission],
-    options: {
-      chart: {
-        type: "donut",
-        events: {
-          dataPointSelection: (event, chartContext, config) => {
-            const clickedSeriesValue =
-              chartData.options.labels[config.dataPointIndex];
-            console.log(`Clicked series value: ${clickedSeriesValue}`);
-            if (clickedSeriesValue == "مرخصی") {
-              navigate("/diagram/leave", {
-                state: { Title: "مرخصی", date: date },
-              });
-            } else if (clickedSeriesValue == "ماموریت") {
-              navigate("/diagram/mission", {
-                state: { Title: "ماموریت", date: date },
-              });
-            } else if (clickedSeriesValue == "حضور") {
-              navigate("/diagram/present", {
-                state: { Title: "حضور", date: date },
-              });
-            } else if (clickedSeriesValue == "غیبت") {
-              navigate("/diagram/absence", {
-                state: { Title: "غیبت", date: date },
-              });
-            }
-          },
-        },
-        style: {
-          fontFamily: "Yekan Bach", // Specify your font family
-        },
-      },
-      plotOptions: {
-        pie: {
-          donut: {
-            size: "55%",
-          },
-          dataLabels: {
-            formatter: function (val) {
-              return val + " نفر"; // Add ' نفر' to the label
-            },
-          },
-          style: {
-            fontFamily: "Yekan Bach", // Specify your font family
-          },
-        },
-      },
-
-      labels: ["غیبت", "حضور", "مرخصی", "ماموریت"],
-      dataLabels: {
-        enabled: true,
-        formatter: function (val, opts) {
-          console.log("opts.w.config", opts.w.config.series[opts.seriesIndex]);
-          return (
-            opts.w.config.labels[opts.seriesIndex] +
-            ": " +
-            `${opts.w.config.series[opts.seriesIndex]} نفر`
-          );
-        },
-        style: {
-          fontFamily: "Yekan Bach", // Specify your font family
-        },
-      },
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200,
-            },
-            legend: {
-              position: "bottom",
-            },
-          },
-        },
-      ],
-    },
-  };
   const getDate = (date) => {
     console.log("date", date);
     setDate(date);
@@ -170,28 +65,9 @@ export const MyDiagram = () => {
   const [bardia, setBardia] = useState("");
 
   useEffect(() => {
-    setOrderInformation([
-      {
-        id: 1,
-        day: "چهارشنبه",
-        date: "4 بهمن",
-        bg: "#fff",
-        text: "ساعت 12 تا 15",
-        Latitude: "35.738829",
-        Longitude: "51.446269",
-        img: bardia,
-      },
-      {
-        id: 2,
-        day: "سه‌شنبه",
-        date: "3 بهمن",
-        bg: "#fff",
-        text: "ساعت 12 تا 15",
-        Latitude: "35.708829",
-        Longitude: "51.406269",
-        img: bardia,
-      },
-    ]);
+    const information = JSON.parse(localStorage.getItem("users"));
+    console.log("information", information);
+    setOrderInformation(information);
   }, [bardia]);
 
   console.log("orderInformation", orderInformation);
@@ -242,6 +118,7 @@ export const MyDiagram = () => {
                               item={el}
                               showImage={showImage}
                               setShowImage={setShowImage}
+                              setForm={setForm}
                             />
                           );
                         })}
@@ -249,33 +126,18 @@ export const MyDiagram = () => {
                 </Card>
               </>
             ) : form == 1 ? (
-              <Card height="calc(100vh - 300px)">
-                <MapComponent height="calc(100vh - 400px)" />
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "16px",
-                    marginTop: "32px",
-                    width: "100%",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Button onClick={() => setForm()}>ثبت خرابی</Button>
-                  <Button onClick={() => setForm(0)}> پایان</Button>
-                </div>
-              </Card>
+              <DetailJob setForm={setForm} />
             ) : form == 2 ? (
               <div
-              style={{
-                width: "100%",
-                display: "flex",
-                width: "100%",
-                alignItems: "flex-end",
-                justifyContent: "center",
-              }}
-            >
-              {/* {returnModal && (
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  width: "100%",
+                  alignItems: "flex-end",
+                  justifyContent: "center",
+                }}
+              >
+                {/* {returnModal && (
                 <ReturnModal
                   type={"مرخصی"}
                   ReturnHandler={fetchReturnData}
@@ -283,17 +145,17 @@ export const MyDiagram = () => {
                   onClose={setReturnModal}
                 />
               )} */}{" "}
-              {trafficModal && (
-                <TrafficModalTest
-                  setTakeImage={setTakeImage}
-                  setTrafficModal={setTrafficModal}
-                  trafficModal={trafficModal}
-                  loc={locations}
-                  loader={setLoadingCheck}
-                  setForm={setForm}
-                />
-              )}
-              {/* <Card height="calc(100vh - 250px)" margin="24px 0 0 0">
+                {trafficModal && (
+                  <TrafficModalTest
+                    setTakeImage={setTakeImage}
+                    setTrafficModal={setTrafficModal}
+                    trafficModal={trafficModal}
+                    loc={locations}
+                    loader={setLoadingCheck}
+                    setForm={setForm}
+                  />
+                )}
+                {/* <Card height="calc(100vh - 250px)" margin="24px 0 0 0">
                 <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
                   {true && (
                     <img
@@ -323,7 +185,7 @@ export const MyDiagram = () => {
                   )}
                 </div>
               </Card> */}
-            </div>
+              </div>
             ) : form == 3 ? (
               <DrawImage
                 setBardia={setBardia}
@@ -338,7 +200,6 @@ export const MyDiagram = () => {
           </>
         }
       </div>
-
     </MyContextProvider>
   );
 };

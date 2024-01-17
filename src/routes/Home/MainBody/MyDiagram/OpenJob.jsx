@@ -5,12 +5,21 @@ import styled from "styled-components";
 import MyContext from "./context/MyContext";
 
 function OpenJob({ item, setForm }) {
-  const { myValue, setMyValue, bardia, setBardia } = useContext(MyContext);
+  const {
+    myValue,
+    setMyValue,
+    bardia,
+    setBardia,
+    setShowNavigation,
+    showNavigation,
+  } = useContext(MyContext);
 
   const start = (item) => {
     return setForm(1), setMyValue(item);
   };
-
+  const navigation = () => {
+    return setShowNavigation(true);
+  };
   return (
     <Item>
       <div>
@@ -26,7 +35,7 @@ function OpenJob({ item, setForm }) {
         14502
       </div>
       <div>
-        <span style={{ fontWeight: "bold" }}> تاریخ: </span> {item.date} 1402
+        <span style={{ fontWeight: "bold" }}> تاریخ: </span> {item.Date} 1402
       </div>
       <div>
         <span style={{ fontWeight: "bold" }}> زمان: </span>
@@ -39,7 +48,7 @@ function OpenJob({ item, setForm }) {
         }}
       >
         <Button onClick={(el) => start(item)}>شروع</Button>
-        <Button>مسیریابی</Button>
+        <Button onClick={(el) => setShowNavigation(true)}>مسیریابی</Button>
       </div>
     </Item>
   );

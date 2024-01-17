@@ -9,7 +9,7 @@ function DoneJob({ showImage, setShowImage, item, bardia }) {
     console.log("item.id", item.id);
   };
   const { myValue, setMyValue } = useContext(MyContext);
-  console.log("bardia234234", bardia);
+  console.log("bardia234234", item.Latitude);
   return (
     <Item onClick={() => savedImage(item)}>
       <div>
