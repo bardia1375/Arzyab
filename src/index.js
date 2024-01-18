@@ -12,16 +12,19 @@ import Theme from "theme";
 // Base Styles
 import "assets/styles/global/index.css";
 import "leaflet/dist/leaflet.css";
+import { AppProvider } from "context/AppContext";
 
 const rootEl = document.getElementById("root");
 
 ReactDOM.render(
   <Provider store={store}>
+    <AppProvider> 
     <Theme>
       <Router>
         <Routes />
       </Router>
     </Theme>
+    </AppProvider>
   </Provider>,
   rootEl
 );

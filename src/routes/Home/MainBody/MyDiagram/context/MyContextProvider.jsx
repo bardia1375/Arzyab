@@ -5,7 +5,6 @@ const MyContextProvider = ({ children }) => {
   const [myValue, setMyValue] = useState([]);
   const [bardia, setBardia] = useState("");
   const [orderInformation, setOrderInformation] = useState([]);
-  const [showNavigation, setShowNavigation] = useState([]);
   useEffect(() => {
     // Retrieve the image data from local storage
     const savedImage = localStorage.getItem("savedImage");
@@ -48,8 +47,6 @@ const MyContextProvider = ({ children }) => {
         setBardia,
         setOrderInformation,
         orderInformation,
-        showNavigation,
-        setShowNavigation
       }}
     >
       {children}

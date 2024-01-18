@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -17,12 +17,10 @@ import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import { DraggableMarker } from "./DraggableMarker";
-import "leaflet-routing-machine";
+import 'leaflet-routing-machine';
 import "./MapContainer.css";
-import axios from "axios";
-import locationIcon from "../../../../assets/images/profilephoto/myLocation.png";
-import { useLocation } from "react-router-dom";
-import MyContext from "../MyDiagram/context/MyContext";
+import axios from 'axios';
+import     locationIcon from  "../../../../assets/images/profilephoto/myLocation.png"
 delete L.Icon.Default.prototype._getIconUrl;
 
 L.Icon.Default.mergeOptions({
@@ -60,25 +58,23 @@ function MapComponent({
   const x = JSON.parse(localStorage.getItem("users"));
   const arraysOfMap = JSON.parse(localStorage.getItem("arraysOfMap"));
   const Users = arraysOfMap;
-  const position = x?.map((el) => el.position);
-  const polyline = x?.map((el) => [el.position, el.EndPosition]);
-  
-
-  console.log("UsersUsers", polyline);
-  console.log("centerMapcenterMap", centerMap);
+  const position = x
+    ?.filter((res) => res.Date == date)[0]
+    ?.persons.map((el) => el.position);
+  console.log("UsersUsers", Users);
+  console.log("mapsavedLatitude", savedLatitude);
   const [positions, setPositions] = useState(position);
   console.log("position", position);
 
   const groupSize = 2;
-  // const polyline = [[0,0], [1, 1]];
 
-  // const outputCoordinates = [];
+  const outputCoordinates = [];
 
-  // for (let i = 0; i < position?.length; i += groupSize) {
-  //   outputCoordinates.push(position.slice(i, i + groupSize));
-  // }
+  for (let i = 0; i < position?.length; i += groupSize) {
+    outputCoordinates.push(position.slice(i, i + groupSize));
+  }
 
-  // console.log("23423423", outputCoordinates);
+  console.log("23423423", outputCoordinates);
   const [positionSearch, setPositionSearch] = useState(
     positions ? positions[0] : [35.739282, 51.429821],
     [35.735171, 51.430122],
@@ -93,6 +89,7 @@ function MapComponent({
     [35.745259, 51.457067],
     [35.755259, 51.457067]
   );
+  const polyline = [outputCoordinates];
   useEffect(() => {}, []);
   const LocateControl = () => {
     const map = useMap();
@@ -110,23 +107,14 @@ function MapComponent({
     };
 
     return (
-      <div>
+      <div >
         <img
           src={locationIcon} // Path to your image
           alt="Locate Me"
           width="26px"
           className="locate-me-btn"
           onClick={handleClick}
-          style={{
-            zIndex: 1000,
-            backgroundColor: "#fff",
-            padding: "2px",
-            borderRadius: "4px",
-            position: "absolute",
-            bottom: 2,
-            left: 2,
-            cursor: "pointer",
-          }}
+          style={{ zIndex:1000,backgroundColor:"#fff",padding:"2px",borderRadius:"4px",position: "absolute", bottom: 2, left: 2,cursor:"pointer" }}
         />
         {/* <img src='assets/images/profilephoto/newWorker.png' style={{zIndex:1000,  position: "absolute",bottom:0,left:0}} onClick={handleClick} /> */}
       </div>
@@ -262,17 +250,18 @@ function MapComponent({
     setMapPositions((prevPositions) => [...prevPositions, newMarker]);
   };
 
-  const [startPoint, setStartPoint] = useState({
-    lat: 35.7201717,
-    lng: 51.3697583,
-  });
 
-  const [endPoint, setEndPoint] = useState({ lat: 35.749282, lng: 51.450122 });
-  useEffect(() => {
-    if (centerMap !== undefined) {
-      setEndPoint({ lat: centerMap[0], lng: centerMap[1] });
-    }
-  }, [centerMap]);
+
+
+
+
+
+
+
+
+
+const [startPoint,setStartPoint]=useState({ lat: 35.7201717, lng: 51.3697583 })
+const [endPoint,setEndPoint]=useState({ lat: 35.749282, lng: 51.450122 })
 
   const routingControlRef = useRef(null);
   const [carMarker, setCarMarker] = useState(null);
@@ -305,7 +294,7 @@ function MapComponent({
   //     setCarMarker(L.marker([startPoint.lat, startPoint.lng], { icon: carIcon }).addTo(map));
   //   }
   // }, [mapRef, routingControlRef, startPoint, endPoint]);
-
+  
   // const navigateTo = (lat, lng, zoom) => {
   //   const map = mapRef.current;
 
@@ -313,7 +302,9 @@ function MapComponent({
   //     map.setView([lat, lng], zoom);
   //   }
   // };
-  const NavigationControl = () => {};
+  const NavigationControl = () => {
+ 
+  };  
   const [userLocation1, setUserLocation1] = useState(null);
   const [isRouteDisplayed, setIsRouteDisplayed] = useState(false);
 
@@ -330,10 +321,10 @@ function MapComponent({
         waypoints,
         routeWhileDragging: true,
         lineOptions: {
-          styles: [{ color: "blue", opacity: 0.7, weight: 5 }],
+          styles: [{ color: 'blue', opacity: 0.7, weight: 5 }],
         },
         addWaypoints: false,
-        fitSelectedRoutes: "smart",
+        fitSelectedRoutes: 'smart',
       }).addTo(map);
 
       const carIcon = L.icon({
@@ -342,33 +333,27 @@ function MapComponent({
         iconAnchor: [16, 16],
       });
 
-      setCarMarker(
-        L.marker([startPoint.lat, startPoint.lng], { icon: carIcon }).addTo(map)
-      );
+      setCarMarker(L.marker([startPoint.lat, startPoint.lng], { icon: carIcon }).addTo(map));
+    
     }
   };
 
+  
+
   function SetViewOnClick({ coords }) {
     const map = useMap();
-    map.setView(userLocation1 ? userLocation1 : coords, map.getZoom());
+    map.setView(userLocation1?userLocation1:coords, map.getZoom());
+
     return null;
   }
-
-  useEffect(()=>{
-
-  },[])
-      const { showNavigation } = useContext(MyContext);
-
-  useEffect(() => {
-  
-    // const { showNavigation } = useContext(MyContext);
-    console.log("showNavigationshowNavigation", showNavigation);
+  const handleStartButtonClick = () => {
     // Check if the route is already displayed
-    if (showNavigation) {
+    if (true) {
       // Fetch and display the route
-     return  fetchAndDisplayRoute();
+      fetchAndDisplayRoute();
     }
-  }, [showNavigation]);
+  };
+
 
 
   useEffect(() => {
@@ -376,10 +361,10 @@ function MapComponent({
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-
+  
           // Update user location
           setUserLocation1([latitude, longitude]);
-          setStartPoint({ lat: latitude, lng: longitude });
+          setStartPoint({lat:latitude,lng:longitude})
           // Update car marker position
           if (carMarker) {
             carMarker.setLatLng([latitude, longitude]);
@@ -390,22 +375,20 @@ function MapComponent({
               iconSize: [32, 32],
               iconAnchor: [16, 16],
             });
-
+  
             // Create a new car marker if it doesn't exist
-            setCarMarker(
-              L.marker([latitude, longitude], { icon: carIcon }).addTo(map)
-            );
+            setCarMarker(L.marker([latitude, longitude], { icon: carIcon }).addTo(map));
           }
         },
         (error) => {
-          console.error("Error getting user location:", error.message);
+          console.error('Error getting user location:', error.message);
         }
       );
     };
-
+  
     // Update user location and car marker every 5000 milliseconds (5 seconds)
     const locationInterval = setInterval(updateLocation, 5000);
-
+  
     // Clear the interval and remove the car marker on component unmount
     return () => {
       clearInterval(locationInterval);
@@ -414,8 +397,7 @@ function MapComponent({
       }
     };
   }, [carMarker]); // Dependency array includes carMarker
-  const location = useLocation();
-  console.log("window.location.pathname", location.pathname == "/home");
+  
   return (
     <MapContainer
       center={coords}
@@ -482,9 +464,7 @@ function MapComponent({
         )}
         {/* <button onClick={this.handleSearchSubmit}>Search</button> */}
       </div>
-      {location.pathname == "/home" && (
-        <Polyline pathOptions={limeOptions} positions={polyline} />
-      )}
+      <Polyline pathOptions={limeOptions} positions={polyline} />
 
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -525,7 +505,7 @@ function MapComponent({
           </Popup>
         </Marker>
       )} */}
-      {!centerMap && location.pathname == "/home" ? (
+      {true ? (
         <MarkerClusterGroup>
           {positions?.map((el, index) => (
             <Marker key={index} position={el}></Marker>
@@ -533,10 +513,16 @@ function MapComponent({
         </MarkerClusterGroup>
       ) : (
         <MarkerClusterGroup>
-          <Marker position={centerMap}></Marker>
+          {centerMap?.map((el, index) => (
+            <Marker key={index} position={el} icon={blueDotIcon}></Marker>
+          ))}{" "}
         </MarkerClusterGroup>
       )}
       <LocateControl />
+
+
+
+
 
       {userLocation && (
         <Marker position={userLocation}>
@@ -546,6 +532,12 @@ function MapComponent({
       {/* <Marker position={[startPoint.lat, startPoint.lng]}>
         <Popup>Start Point</Popup>
       </Marker> */}
+
+      <Marker position={[endPoint.lat, endPoint.lng]}>
+        <Popup>End Point</Popup>
+      </Marker>
+      <Button style={{zIndex:1000000000}} onClick={handleStartButtonClick}>Start</Button>
+
     </MapContainer>
   );
 }
