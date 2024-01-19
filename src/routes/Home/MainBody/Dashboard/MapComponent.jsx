@@ -24,6 +24,7 @@ import locationIcon from "../../../../assets/images/profilephoto/myLocation.png"
 import { useLocation } from "react-router-dom";
 import MyContext from "../MyDiagram/context/MyContext";
 import { AppContext } from "context/AppContext";
+import { errorMessage } from "services/toast";
 delete L.Icon.Default.prototype._getIconUrl;
 
 L.Icon.Default.mergeOptions({
@@ -305,8 +306,8 @@ function MapComponent({
   };
 
   const [startPoint, setStartPoint] = useState({
-    lat: 35.73667252844892,
-    lng: 51.4256501197815,
+    lat: 0,
+    lng:0,
   });
 
   const [endPoint, setEndPoint] = useState({ lat: 35.749282, lng: 51.450122 });
@@ -433,6 +434,7 @@ function MapComponent({
         },
         (error) => {
           console.error("Error getting user location:", error.message);
+          // errorMessage("در حال حاضر بدلیل محدودیت گوگل امکان دسترسی به موقعیت مکانی شما وجود ندارد. لطفا جند دقیقه دیگر تلاش کنید.")
         }
       );
     };

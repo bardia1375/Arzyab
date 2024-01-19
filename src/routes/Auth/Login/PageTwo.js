@@ -39,7 +39,7 @@ const PageTwo = ({ setPage }) => {
             }}
           >
             <img width={20} src={Tik} alt="Tik" />
-            ثبت تردد
+                             امکان ثبت عکس از مکان های آسیب دیده
           </div>
           <div
             style={{
@@ -65,20 +65,7 @@ const PageTwo = ({ setPage }) => {
             }}
           >
             <img width={20} src={Tik} alt="Tik" />
-            محاسبۀ حقوق و مزایا
-          </div>
-          <div
-            style={{
-              color: "#183573",
-              fontSize: "3vh",
-              fontWeight: "600",
-              padding: "5px",
-              display: "flex",
-              gap: "10px",
-            }}
-          >
-            <img width={20} src={Tik} alt="Tik" />
-            ثبت مرخصی و مأموریت
+            امکان تعیین مسیر با نقشه 
           </div>
         </div>
       </LoginStyles.PageTwoList>

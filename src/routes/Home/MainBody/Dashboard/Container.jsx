@@ -192,7 +192,7 @@ export const Container = ({ setShowMap }) => {
       position: [35.73888409478669, 51.446056365966804],
       EndPosition: [35.738940043341415, 51.444511413574226],
 
-      address: "خیابان شریعتی - تقاطع با محمود قندی",
+      location: "خیابان شریعتی - تقاطع با محمود قندی",
       State: 0,
       image:[]
 
@@ -203,7 +203,7 @@ export const Container = ({ setShowMap }) => {
       day: "شنبه",
       Date: "5 بهمن",
       bg: "#fff",
-      location: "سهروردی - خیابان خرمشهر",
+      address: "سهروردی - خیابان خرمشهر",
       text: "ساعت 15 تا 18",
       Latitude: "35.73565315295217",
       Longitude: "51.43498420715333",
@@ -229,7 +229,7 @@ export const Container = ({ setShowMap }) => {
       Latitude: "35.75018263810443",
       Longitude: "51.381087899208076",
       State: 0,
-      address: "بزرگراه همت - ایستگاه اتوبوس میلاد",
+      location: "بزرگراه همت - ایستگاه اتوبوس میلاد",
       image:[]
 
       // img: NewImage,

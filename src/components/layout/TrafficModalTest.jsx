@@ -35,6 +35,8 @@ export const TrafficModalTest = ({
   const [loading, setLoading] = useState(false);
   const [cameraButton, setCameraButton] = useState(false);
   const [locations, setLocations] = useState({});
+  const [isFrontCamera, setIsFrontCamera] = useState(false);
+
   const dispatch = useDispatch();
   // const {navigate}=useNavigate()
   // const [presentStatus, setPresentStatus] = useState(
@@ -116,7 +118,7 @@ export const TrafficModalTest = ({
       async function getMedia() {
         try {
           stream = await navigator.mediaDevices.getUserMedia({
-            video: true,
+            video: { facingMode: isFrontCamera ? 'user' : 'environment' },
           });
           setCameraButton(true);
           videoRef.current.srcObject = stream;
@@ -138,7 +140,7 @@ export const TrafficModalTest = ({
         }
       };
     }
-  }, []);
+  }, [isFrontCamera]);
 
   // Helper function to convert data URL to Blob object
   function dataURLtoBlob(dataUrl) {
@@ -359,7 +361,9 @@ export const TrafficModalTest = ({
       growDiv.style.height = wrapper.clientHeight + "px";
     }
   }
-
+  const handleFlipButtonClick = () => {
+    setIsFrontCamera(prevState => !prevState);
+  };
   return (
     <>
       <Overlay
@@ -393,6 +397,9 @@ export const TrafficModalTest = ({
             position: "relative",
           }}
         >
+      <button id="flip-button" onClick={handleFlipButtonClick} style={{zIndex:"1000000000"}}>
+        Flip Camera
+      </button>
           <video
             // style={{ marginTop: "50px" }}
             ref={videoRef}

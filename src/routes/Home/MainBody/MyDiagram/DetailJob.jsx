@@ -15,10 +15,10 @@ function DetailJob({ setForm, item }) {
 
     console.log("getIdgetI12d",myValue.id);
     const NewUsers = JSON.parse(localStorage.getItem("NewUsers"));
-    console.log("NewUsers",NewUsers[myValue?.id]);
+   
 
-if(NewUsers[myValue?.id].image?.length!==0){
-
+if(!!NewUsers && NewUsers[myValue?.id].image?.length!==0){
+ console.log("NewUsers",NewUsers[myValue?.id]);
 
     if (!Users) {
       const getUsers = JSON.parse(localStorage.getItem("users"));

@@ -2,7 +2,7 @@ import Card from "components/common/Card";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import MyContext from "./context/MyContext";
 import { Button } from "components/common";
-
+import "./DrawImage.css"
 function DrawImage({
   takeImage,
   setForm
@@ -16,6 +16,29 @@ function DrawImage({
     const getUsers = JSON.parse(localStorage.getItem("NewUsers"));
   // const { index }=useContext(AppContext)
   const [Users,setUsers]=useState(getUsers)
+
+
+
+
+
+  useEffect(() => {
+    const preventDefault = (event) => {
+      event.preventDefault();
+    };
+
+    // Attach event listeners to the document to prevent default touch behavior
+    document.addEventListener('touchstart', preventDefault, { passive: false });
+    document.addEventListener('touchmove', preventDefault, { passive: false });
+
+    // Cleanup: remove event listeners when the component unmounts
+    return () => {
+      document.removeEventListener('touchstart', preventDefault);
+      document.removeEventListener('touchmove', preventDefault);
+    };
+  }, []);
+
+
+
   useEffect(() => {
     // Retrieve the image data from local storage
     const savedImage = localStorage.getItem("savedImage");
@@ -151,6 +174,8 @@ function DrawImage({
 
   };
   const handleTouchStart = (event) => {
+    event.preventDefault(); // Prevent the default touch behavior
+
     isDrawingRef.current = true;
     startDrawing(event.touches[0]);
   };
@@ -196,17 +221,21 @@ function DrawImage({
     }
   };
   const handleTouchMove = (event) => {
+    event.preventDefault(); // Prevent the default touch behavior
+
     if (!isDrawingRef.current) return;
     draw(event.touches[0]);
   };
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = (event) => {
+    event.preventDefault(); // Prevent the default touch behavior
+
     isDrawingRef.current = false;
   };
 
   return (
     <Card height="calc(100vh - 250px)">
-      <div>
+      <div className="mainCanvas">
         <div style={{
               position:"absolute",
 

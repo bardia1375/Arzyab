@@ -31,10 +31,7 @@ const PageOne = ({ page, setPage }) => {
       </LoginStyles.PageOneImage>
       <LoginStyles.PageOneDetail>
         <div style={{ color: "#e67205", fontSize: "6vh", fontWeight: "400",textAlign:"center",whiteSpace:"noWrap" }}>
-          نرم افزار مدیریت
-        </div>
-        <div style={{ color: "#e67205", fontSize: "5vh", fontWeight: "300" }}>
-          پسماند
+          نرم افزار ارزیابی
         </div>
       </LoginStyles.PageOneDetail>
     </LoginStyles.PageOneBody>
