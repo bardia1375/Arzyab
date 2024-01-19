@@ -10,7 +10,7 @@ import Calendar from "components/common/classes/Calendar";
 // Header title for decreasing size of bundle
 let dayLimit = 60;
 let monthLimit = 12;
-const DateNavHeader = ({ getDate, getSelectedTitle }) => {
+const DateNavHeader = ({ getDate, getSelectedTitle,selected }) => {
   // States && Hooks
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const DateNavHeader = ({ getDate, getSelectedTitle }) => {
     (state) => state.dashboard
   );
   const today = new Date();
-  const [selectedTitle, setSelectedTitle] = useState("درخواست‌های باز");
+  const [selectedTitle, setSelectedTitle] = useState(selected?selected:"درخواست‌های باز");
   const [collapse, setCollapse] = useState(false);
   const [datePicker, setDatePicker] = useState(false);
   const [dayShow, setDayShow] = useState(null);

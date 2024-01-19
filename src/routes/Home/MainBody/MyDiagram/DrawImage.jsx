@@ -1,27 +1,28 @@
 import Card from "components/common/Card";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import MyContext from "./context/MyContext";
+import { Button } from "components/common";
 
 function DrawImage({
-  imageData,
-  orderInformation,
-  setOrderInformation,
   takeImage,
+  setForm
 }) {
-  const { myValue, setMyValue, bardia, setBardia } = useContext(MyContext);
+  const { myValue, setMyValue, NewImage, setNewImage } = useContext(MyContext);
   console.log("myValuemyValue", myValue);
   const canvasRef = useRef(null);
   const isDrawingRef = useRef(false);
   const [isEraser, setIsEraser] = useState(false);
   const [ImageData, setImageData] = useState(takeImage);
-  console.log("orderInformation", orderInformation);
+    const getUsers = JSON.parse(localStorage.getItem("NewUsers"));
+  // const { index }=useContext(AppContext)
+  const [Users,setUsers]=useState(getUsers)
   useEffect(() => {
     // Retrieve the image data from local storage
     const savedImage = localStorage.getItem("savedImage");
     console.log("savedImagesavedImage", savedImage);
     // Update the state with the retrieved image data
     if (savedImage) {
-      setBardia(savedImage);
+      setNewImage(savedImage);
     }
 
     // Draw on the canvas
@@ -110,6 +111,44 @@ function DrawImage({
     const imageDataUrl = canvas.toDataURL();
     localStorage.setItem("savedImage", imageDataUrl);
     setImageData(imageDataUrl);
+
+
+
+    console.log("getIdgetId",myValue.id);
+    console.log("Users",Users);
+    if (!Users) {
+      const getUsers = JSON.parse(localStorage.getItem("users"));
+      const newUsers = [...getUsers];
+  
+      if (!newUsers[myValue.id].image) {
+        newUsers[myValue.id].image = [imageDataUrl];
+      } else {
+        newUsers[myValue.id].image.push(imageDataUrl);
+      }
+  
+      setUsers(newUsers);
+      localStorage.setItem("NewUsers", JSON.stringify(newUsers));
+      setForm(1);
+    } else {
+      const newUsers = [...Users];
+  
+      if (!newUsers[myValue.id].image) {
+        console.log("newUsers[myValue.id].image1",newUsers[myValue.id]);
+        console.log("newUsers[myValue.id].image1",myValue.id);
+
+        newUsers[myValue.id].image = [imageDataUrl];
+      } else {
+        console.log("newUsers[myValue.id].image2",newUsers[myValue.id].image);
+        console.log("newUsers[myValue.id].image2",myValue.id);
+
+        newUsers[myValue.id].image.push(imageDataUrl);
+      }
+  
+      setUsers(newUsers);
+      localStorage.setItem("NewUsers", JSON.stringify(newUsers));
+      setForm(1);
+    }
+
   };
   const handleTouchStart = (event) => {
     isDrawingRef.current = true;
@@ -168,20 +207,30 @@ function DrawImage({
   return (
     <Card height="calc(100vh - 250px)">
       <div>
-        <div>
-          <button onClick={toggleEraser}>
+        <div style={{
+              position:"absolute",
+
+              bottom: 0, /* position the top  edge of the element at the middle of the parent */
+              left: "50%", /* position the left edge of the element at the middle of the parent */
+          
+              transform: "translate(-50%, -50%)", 
+                      
+            }}>
+          {/* <button onClick={toggleEraser}>
             {isEraser ? "Disable Eraser" : "Enable Eraser"}
-          </button>
-          <button onClick={saveToLocalStorage}>Save to Local Storage</button>
+          </button> */}
+          <Button onClick={saveToLocalStorage}>ذخیره عکس</Button>
         </div>
         {true ? (
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "100%",
-              height: "100%",
+              position:"absolute",
+
+              top: "50%", /* position the top  edge of the element at the middle of the parent */
+              left: "50%", /* position the left edge of the element at the middle of the parent */
+          
+              transform: "translate(-50%, -50%)", 
+                      
             }}
           >
             <canvas

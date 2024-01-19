@@ -1,3 +1,4 @@
+
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable eqeqeq */
 import { useEffect, useRef, useState } from "react";
@@ -26,6 +27,7 @@ export const TrafficModalTest = ({
   setForm
 }) => {
   // Codes of companies which can use camera option
+  console.log("TrafficModalTest");
   const codeList = [12345];
   const token = localStorage.getItem("tickmentAd_AccessToken");
   const info = JSON.parse(localStorage.getItem("personsData"));
@@ -108,7 +110,7 @@ export const TrafficModalTest = ({
 
   useEffect(() => {
     loader(true);
-    if (codeList.some((x) => x === info.CompanyCode)) {
+    if (true) {
       let stream;
 
       async function getMedia() {
@@ -116,9 +118,10 @@ export const TrafficModalTest = ({
           stream = await navigator.mediaDevices.getUserMedia({
             video: true,
           });
+          setCameraButton(true);
           videoRef.current.srcObject = stream;
           videoRef.current.style.transform = "scaleX(-1)";
-          setCameraButton(true);
+
           loader(false);
         } catch (err) {
           loader(false);
@@ -216,8 +219,7 @@ export const TrafficModalTest = ({
           )
           .then((res) => {
             if (
-              res.data.data.clockings[0].datetime.split(" ")[1] ===
-              jMoment().format("HH:mm:00")
+              false
             ) {
               errorMessage("!لطفا یک دقیقه منتظر بمانید");
               setImage(null);
@@ -272,7 +274,7 @@ export const TrafficModalTest = ({
                     loader(false);
                     dispatch(setTraffic(false));
                     setTrafficModal(false);
-                    successMessage(".تردد شما با موفقیت ثبت شد");
+                    successMessage(".عکس شما با موفقیت ثبت شد");
                     setForm(3)
                   } else {
                     setLoading(false);
@@ -292,60 +294,60 @@ export const TrafficModalTest = ({
 
   };
 
-  useEffect(() => {
-    setLoading(true);
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        axios
-          .get(
-            `${api.api}/v1/ta/clockings?filter_groups[0][filters][0][key]=user_id&filter_groups[0][filters][0][value][0]=${info.UserId}&filter_groups[0][filters][0][operator]=in&sort[0][key]=datetime&sort[0][direction]=DESC&limit=1&page=0`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          )
-          .then((res) => {
-            if (
-              res.data.data.clockings[0].datetime.split(" ")[0] !==
-              jMoment().format("YYYY-MM-DD")
-            ) {
-              setEntryType("out");
-            } else {
-              setEntryType(res.data.data.clockings[0].entry_type);
-            }
-            setLoading(false);
-          });
-        setLocations({
-          lat: position.coords.latitude,
-          long: position.coords.longitude,
-        });
-      },
-      (error) => {
-        axios
-          .get(
-            `${api.api}/v1/ta/clockings?filter_groups[0][filters][0][key]=user_id&filter_groups[0][filters][0][value][0]=${info.UserId}&filter_groups[0][filters][0][operator]=in&sort[0][key]=datetime&sort[0][direction]=DESC&limit=1&page=0`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          )
-          .then((res) => {
-            if (
-              res.data.data.clockings[0].datetime.split(" ")[0] !==
-              jMoment().format("YYYY-MM-DD")
-            ) {
-              setEntryType("out");
-            } else {
-              setEntryType(res.data.data.clockings[0].entry_type);
-            }
-            setLoading(false);
-          });
-        setLocations({ error: "دسترسی به موقعیت مکانی شما امکان پذیر نیست." });
-      }
-    );
-  }, []);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   navigator.geolocation.getCurrentPosition(
+  //     (position) => {
+  //       axios
+  //         .get(
+  //           `${api.api}/v1/ta/clockings?filter_groups[0][filters][0][key]=user_id&filter_groups[0][filters][0][value][0]=${info.UserId}&filter_groups[0][filters][0][operator]=in&sort[0][key]=datetime&sort[0][direction]=DESC&limit=1&page=0`,
+  //           {
+  //             headers: {
+  //               Authorization: `Bearer ${token}`,
+  //             },
+  //           }
+  //         )
+  //         .then((res) => {
+  //           if (
+  //             res.data.data.clockings[0].datetime.split(" ")[0] !==
+  //             jMoment().format("YYYY-MM-DD")
+  //           ) {
+  //             setEntryType("out");
+  //           } else {
+  //             setEntryType(res.data.data.clockings[0].entry_type);
+  //           }
+  //           setLoading(false);
+  //         });
+  //       setLocations({
+  //         lat: position.coords.latitude,
+  //         long: position.coords.longitude,
+  //       });
+  //     },
+  //     (error) => {
+  //       axios
+  //         .get(
+  //           `${api.api}/v1/ta/clockings?filter_groups[0][filters][0][key]=user_id&filter_groups[0][filters][0][value][0]=${info.UserId}&filter_groups[0][filters][0][operator]=in&sort[0][key]=datetime&sort[0][direction]=DESC&limit=1&page=0`,
+  //           {
+  //             headers: {
+  //               Authorization: `Bearer ${token}`,
+  //             },
+  //           }
+  //         )
+  //         .then((res) => {
+  //           if (
+  //             res.data.data.clockings[0].datetime.split(" ")[0] !==
+  //             jMoment().format("YYYY-MM-DD")
+  //           ) {
+  //             setEntryType("out");
+  //           } else {
+  //             setEntryType(res.data.data.clockings[0].entry_type);
+  //           }
+  //           setLoading(false);
+  //         });
+  //       setLocations({ error: "دسترسی به موقعیت مکانی شما امکان پذیر نیست." });
+  //     }
+  //   );
+  // }, []);
 
   function openCollapse() {
     setCollapse(!collapse);

@@ -149,24 +149,7 @@ function StatusCard({
     return () => document.body.removeEventListener("click", closeOption);
   }, [openOption]);
 
-  useEffect(() => {
-    if (selectedReport === "کارکرد من") {
-      setLastShow(lastTraffics);
-    } else if (selectedReport === "مأموریت‌ها") {
-      setLastShow(lastAssignments);
-    } else {
-      setLastShow(lastLeaves);
-    }
-  }, [selectedReport, lastTraffics, lastAssignments, lastLeaves]);
-  const Timer = () => {
-    const Time = TravelTime.split(":");
-    return (
-      <div>
-        <span>{Time[0]}ساعت</span>
-        <span>{Time[1]}دقیقه</span>
-      </div>
-    );
-  };
+
   return (
     <Dashboard.StatusTypes>
       {location.pathname === "/home" ? (
@@ -230,7 +213,6 @@ function StatusCard({
         <Card color={"#fff"} margin={"12px 0"} height={"100%"}>
           <div style={{ display: "flex", gap: "8px" }}>
             <div>مدت زمان سفر شما: </div>
-            <div> {Timer()}</div>
           </div>
           <div> مسیر حرکتی شما در نقشه بالا با رنگ سبز مشخص شده است.</div>
         </Card>

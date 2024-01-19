@@ -1,21 +1,34 @@
 import { Button } from "components/common";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import MapComponent from "../Dashboard/MapComponent";
 import styled, { css } from "styled-components";
 import MyContext from "./context/MyContext";
 
-function DoneJob({ showImage, setShowImage, item, bardia }) {
+function DoneJob({ showImage, setShowImage, item, NewImage,setForm,form
+}) {
   const savedImage = (item) => {
     console.log("item.id", item.id);
   };
-  const { myValue, setMyValue } = useContext(MyContext);
-  console.log("bardia234234", item.Latitude);
+  const NewUsers = JSON.parse(localStorage.getItem("NewUsers"));
+  const [Users,setUsers]=useState(NewUsers)
+ console.log("UsersUsersUsers",Users);
+  const { myValue, setNewImage } = useContext(MyContext);
+  console.log("NewImage234234", item);
+ const handleImage=(el)=>{
+  setForm(4)
+  setNewImage(el)
+ }
   return (
     <Item onClick={() => savedImage(item)}>
       <div>
         <MapComponent centerMap={[item.Latitude, item.Longitude]} />
       </div>
-      <img src={bardia} width="100px" />
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr 1fr 1fr",gap:"8px"}}>
+      {item.image.map((el)=>(
+        <div onClick={()=>handleImage(el)}><img src={el} width="60px" height="60px"/></div>
+      ))}</div>
+
+      {/* <img src={NewImage} width="100px" /> */}
       <div>
         <span style={{ fontWeight: "bold" }}> آدرس : </span>
         {item.Address}
@@ -23,7 +36,7 @@ function DoneJob({ showImage, setShowImage, item, bardia }) {
 
       <div>
         <span style={{ fontWeight: "bold" }}> کد سفارش: </span>
-        {myValue}
+        
       </div>
       <div>
         <span style={{ fontWeight: "bold" }}> تاریخ: </span> {item.date} 1402
@@ -39,9 +52,11 @@ function DoneJob({ showImage, setShowImage, item, bardia }) {
         }}
       >
         {/* <Button onClick={(el) => setForm(1)}>شروع</Button> */}
-        <Button onClick={() => setShowImage(true)}>عکس های گرفته شده</Button>
+        {/* <Button onClick={() => setShowImage(true)}>عکس های گرفته شده</Button> */}
       </div>
+
     </Item>
+    
   );
 }
 

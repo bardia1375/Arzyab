@@ -16,12 +16,14 @@ import MyContext from "./context/MyContext";
 import LoadingSpinner from "components/common/publicTable/loading/LoadingSpinner";
 import { TrafficModalTest } from "components/layout/TrafficModalTest";
 import DetailJob from "./DetailJob";
+import ShowImage from "./ShowImage";
 export const MyDiagram = () => {
   // Data for the pie chart
   const today = new Date();
   const [ImageData, setImageData] = useState(imageData);
   const [showImage, setShowImage] = useState(false);
-  console.log("");
+  const [GetId,setGetId]=useState("")
+  const [form, setForm] = useState(0);
 
   const [date, setDate] = useState(moment(today).format("jYYYY-jMM-jDD"));
   const clickPointsRef = useRef([]);
@@ -34,7 +36,6 @@ export const MyDiagram = () => {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
 
-  const info = JSON.parse(localStorage.getItem("users"));
 
   const [trafficModal, setTrafficModal] = useState(true);
   const [loadingCheck, setLoadingCheck] = useState(false);
@@ -62,17 +63,21 @@ export const MyDiagram = () => {
     ...timeInformation[index],
   }));
   const [orderInformation, setOrderInformation] = useState([]);
-  const [bardia, setBardia] = useState("");
-
+  const [NewImage, setNewImage] = useState("");
+  let information=JSON.parse(localStorage.getItem("NewUsers"));
   useEffect(() => {
-    const information = JSON.parse(localStorage.getItem("users"));
+     
+    if(!information){
+       information = JSON.parse(localStorage.getItem("users"));
+    }else{
+       information = JSON.parse(localStorage.getItem("NewUsers"));
+    }
     console.log("information", information);
     setOrderInformation(information);
-  }, [bardia]);
+  }, [form]);
 
   console.log("orderInformation", orderInformation);
   const [selected, setselected] = useState("درخواست‌های باز");
-  const [form, setForm] = useState(0);
   const [isEraser, setIsEraser] = useState(false);
 
   const getSelectedTitle = (data) => {
@@ -89,10 +94,15 @@ export const MyDiagram = () => {
     console.log("savedImagesavedImage", savedImage);
     // Update the state with the retrieved image data
     if (savedImage) {
-      setBardia(savedImage);
+      setNewImage(savedImage);
     }
   }, []); // Empty dependency array ensures this runs once on component mount
+const getId=(id)=>{
+   setGetId(id)
+   console.log("GetIdGetIdGetId",GetId);
 
+}
+console.log("formsdvsdvsdvs",form);
   return (
     <MyContextProvider>
       <div style={{ marginTop: "32px" }}>
@@ -101,6 +111,7 @@ export const MyDiagram = () => {
             {form == 0 ? (
               <>
                 <DateNavHeader
+                selected={selected}
                   getDate={getDate}
                   getSelectedTitle={getSelectedTitle}
                 />
@@ -108,20 +119,27 @@ export const MyDiagram = () => {
                   <Items>
                     {orderInformation && selected === "درخواست‌های باز"
                       ? orderInformation.map((el, index) => {
-                          return <OpenJob item={el} setForm={setForm} />;
+                        if(el.State==0){
+                          return <OpenJob item={el} setForm={setForm} getId={getId} GetId={GetId}/>;
+                        }
                         })
                       : orderInformation.map((el, index) => {
+                        if(el.State==1){
                           return (
                             <DoneJob
                               orderInformation={orderInformation}
-                              bardia={el.bardia}
+                              NewImage={el.NewImage}
                               item={el}
                               showImage={showImage}
                               setShowImage={setShowImage}
                               setForm={setForm}
+                              form={form}
                             />
                           );
+                        }
+                          
                         })}
+
                   </Items>
                 </Card>
               </>
@@ -137,15 +155,7 @@ export const MyDiagram = () => {
                   justifyContent: "center",
                 }}
               >
-                {/* {returnModal && (
-                <ReturnModal
-                  type={"مرخصی"}
-                  ReturnHandler={fetchReturnData}
-                  items={returnModal}
-                  onClose={setReturnModal}
-                />
-              )} */}{" "}
-                {trafficModal && (
+
                   <TrafficModalTest
                     setTakeImage={setTakeImage}
                     setTrafficModal={setTrafficModal}
@@ -154,49 +164,21 @@ export const MyDiagram = () => {
                     loader={setLoadingCheck}
                     setForm={setForm}
                   />
-                )}
-                {/* <Card height="calc(100vh - 250px)" margin="24px 0 0 0">
-                <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
-                  {true && (
-                    <img
-                      src={takeImage}
-                      alt="Captured Preview"
-                      style={{ width: "100%", marginTop: "10px" }}
-                    />
-                  )}
-                  {loading ? (
-                    <LoadingSpinner />
-                  ) : (
-                    <Card color="orange">
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          margin: "24px",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <div>عکس گرفته شده مطابقت دارد با:</div>
-                        <div>کاربر: سید بردیا شمسی</div>
-                        <div>با شماره پرسنلی: 440</div>
-                      </div>
-                    </Card>
-                  )}
-                </div>
-              </Card> */}
+                
               </div>
             ) : form == 3 ? (
               <DrawImage
-                setBardia={setBardia}
+                setNewImage={setNewImage}
                 imageData={imageData}
-                setOrderInformation={setOrderInformation}
                 orderInformation={orderInformation}
                 takeImage={takeImage}
+                setForm={setForm}
               />
-            ) : (
-              <Card height="calc(100vh - 300px)"></Card>
-            )}
+            ) :form==4? (
+              <ShowImage  setForm={setForm} setselected={setselected}/>
+            ):              
+            <Card height="calc(100vh - 300px)"></Card>
+          }
           </>
         }
       </div>

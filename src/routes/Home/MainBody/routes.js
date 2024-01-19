@@ -13,12 +13,14 @@ import { MyDiagram } from "./MyDiagram/Container";
 import { MyDiagramInfo } from "./MyDiagram/MyDiagramInfo/Container";
 import { MyClocking } from "./MyClocking/Container";
 import { SendingTimeWrapper } from "./SendingTime/Container";
+import { Dashboard } from "assets/styles/home/dashboard";
 
 const routes = {
   path: "/",
   element: <MainBody />,
   parent: "home",
   children: [
+
     {
       name: "profile",
       path: "/profile",
@@ -32,7 +34,7 @@ const routes = {
     {
       name: "traffics",
       path: "/",
-      element: <MyTraffics />,
+      element: <MyProfile />,
     },
 
     // {
@@ -66,6 +68,11 @@ const routes = {
       name: "weeklyPlan",
       path: "/weeklyPlan/:id",
       element: <MyWorker />,
+    },
+    {
+      name: "order",
+      path: "/order",
+      element: <MyDiagram />,
     },
     {
       name: "order",

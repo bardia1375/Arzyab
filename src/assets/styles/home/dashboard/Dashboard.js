@@ -35,7 +35,7 @@ export const TitleStyle = styled.div`
   background-color: ${({ selected }) => (selected ? "#37b3b8" : "none")};
   padding: ${({ selected }) => (selected ? "1vh 40px" : "1vh")};
   border-radius: 30px;
-  font-size: 2vh;
+  font-size: 2vw;
   font-weight: 400;
   width: 100%;
   text-align: center;

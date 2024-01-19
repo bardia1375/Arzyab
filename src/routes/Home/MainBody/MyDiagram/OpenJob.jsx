@@ -3,31 +3,29 @@ import MapComponent from "../Dashboard/MapComponent";
 import { Button } from "components/common";
 import styled from "styled-components";
 import MyContext from "./context/MyContext";
+import { AppContext } from "context/AppContext";
 
-function OpenJob({ item, setForm }) {
+function OpenJob({ item, setForm , getId , GetId }) {
   const {
     myValue,
     setMyValue,
-    bardia,
-    setBardia,
-    setShowNavigation,
-    showNavigation,
+
+
   } = useContext(MyContext);
+  const {setIndex}=useContext(AppContext)
 
   const start = (item) => {
     return setForm(1), setMyValue(item);
   };
-  const navigation = () => {
-    return setShowNavigation(true);
-  };
+
   return (
     <Item>
       <div>
-        <MapComponent centerMap={[item.Latitude, item.Longitude]} />
+        <MapComponent centerMap={[item.Latitude, item.Longitude]} GetId={GetId}/>
       </div>
       <div>
         <span style={{ fontWeight: "bold" }}> آدرس : </span>
-        {item.Address}
+        {item.address}
       </div>
 
       <div>
@@ -44,11 +42,10 @@ function OpenJob({ item, setForm }) {
       <div
         style={{
           display: "flex",
-          justifyContent: "space-between",
+          justifyContent: "flex-end",
         }}
       >
         <Button onClick={(el) => start(item)}>شروع</Button>
-        <Button onClick={(el) => setShowNavigation(true)}>مسیریابی</Button>
       </div>
     </Item>
   );

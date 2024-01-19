@@ -209,7 +209,7 @@ export const Menu = ({ setOpenModal, openModal }) => {
         <div>
           <MenuList>
 
-            <Item onClick={() => clickHandler("/sendingTime")}>
+            <Item onClick={() => clickHandler("/")}>
               <img width={25} src={MyTraffic} alt={"MyTraffic"} /> درخواست‌های
               من
             </Item>

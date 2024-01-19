@@ -66,7 +66,7 @@ export function DraggableMarker({
   );
 
   useEffect(() => {
-    console.log("bardiabarayemancheaavardi", mapPosition);
+    console.log("NewImagebarayemancheaavardi", mapPosition);
     if (!!mapPosition) {
       setPosition(mapPosition.length !== 0 ? mapPosition : center);
     }

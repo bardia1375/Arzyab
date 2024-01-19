@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -17,10 +17,13 @@ import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import { DraggableMarker } from "./DraggableMarker";
-import 'leaflet-routing-machine';
+import "leaflet-routing-machine";
 import "./MapContainer.css";
-import axios from 'axios';
-import     locationIcon from  "../../../../assets/images/profilephoto/myLocation.png"
+import axios from "axios";
+import locationIcon from "../../../../assets/images/profilephoto/myLocation.png";
+import { useLocation } from "react-router-dom";
+import MyContext from "../MyDiagram/context/MyContext";
+import { AppContext } from "context/AppContext";
 delete L.Icon.Default.prototype._getIconUrl;
 
 L.Icon.Default.mergeOptions({
@@ -53,28 +56,41 @@ function MapComponent({
   setMapPositions,
   MapPositions,
   centerMap,
+  GetId
 }) {
   const mapRef = useRef(null); // Ref to store the map instance
-  const x = JSON.parse(localStorage.getItem("users"));
-  const arraysOfMap = JSON.parse(localStorage.getItem("arraysOfMap"));
-  const Users = arraysOfMap;
-  const position = x
-    ?.filter((res) => res.Date == date)[0]
-    ?.persons.map((el) => el.position);
-  console.log("UsersUsers", Users);
-  console.log("mapsavedLatitude", savedLatitude);
+  const getUsers = JSON.parse(localStorage.getItem("users"));
+  const getNewUsers = JSON.parse(localStorage.getItem("NewUsers"))
+
+  const { index }=useContext(AppContext)
+  const [Users,setUsers]=useState(!!getNewUsers?getNewUsers:getUsers)
+
+  const position = Users?.map((el) => el.position);
+  const polyline = Users?.map((el) => [el.position, el.EndPosition]);
+  console.log("index342efcsdca", index);
+  console.log("centerMapcenterMap", centerMap);
   const [positions, setPositions] = useState(position);
-  console.log("position", position);
+  const [showNavigation,setShowNavigation]=useState(true)
+
+  useEffect(()=>{
+    console.log("getIdgetId",GetId);
+    console.log("Users",Users);
+    const newUsers=[...Users]
+    newUsers[GetId] = { ...newUsers[GetId], routing: true };
+    setUsers(newUsers)
+    console.log("newUsers",newUsers);
+  },[GetId])
 
   const groupSize = 2;
+  // const polyline = [[0,0], [1, 1]];
 
-  const outputCoordinates = [];
+  // const outputCoordinates = [];
 
-  for (let i = 0; i < position?.length; i += groupSize) {
-    outputCoordinates.push(position.slice(i, i + groupSize));
-  }
+  // for (let i = 0; i < position?.length; i += groupSize) {
+  //   outputCoordinates.push(position.slice(i, i + groupSize));
+  // }
 
-  console.log("23423423", outputCoordinates);
+  // console.log("23423423", outputCoordinates);
   const [positionSearch, setPositionSearch] = useState(
     positions ? positions[0] : [35.739282, 51.429821],
     [35.735171, 51.430122],
@@ -89,8 +105,14 @@ function MapComponent({
     [35.745259, 51.457067],
     [35.755259, 51.457067]
   );
-  const polyline = [outputCoordinates];
-  useEffect(() => {}, []);
+
+  const  handleShowNavigation=()=>{
+    if (true) {
+  // Fetch and display the route
+ return  fetchAndDisplayRoute();
+}
+
+ }
   const LocateControl = () => {
     const map = useMap();
 
@@ -107,15 +129,47 @@ function MapComponent({
     };
 
     return (
-      <div >
+      <div>
         <img
           src={locationIcon} // Path to your image
           alt="Locate Me"
           width="26px"
           className="locate-me-btn"
           onClick={handleClick}
-          style={{ zIndex:1000,backgroundColor:"#fff",padding:"2px",borderRadius:"4px",position: "absolute", bottom: 2, left: 2,cursor:"pointer" }}
+          style={{
+            zIndex: 1000,
+            backgroundColor: "#fff",
+            padding: "2px",
+            borderRadius: "4px",
+            position: "absolute",
+            bottom: 2,
+            left: 2,
+            cursor: "pointer",
+          }}
         />
+     {location.pathname !== "/home"&&   <div   
+         style={{
+            zIndex: 1000,
+            borderRadius: "4px",
+            position: "absolute",
+            fontFamily:"Yekan Bakh",
+            bottom: 2,
+            right: 2,
+            cursor: "pointer",
+          }}>
+            <Button style={{
+            zIndex: 1000,
+            borderRadius: "4px",
+            position: "absolute",
+            fontFamily:"Yekan Bakh",
+            bottom: 2,
+            right: 2,
+            borderRadius:"4px",
+            cursor: "pointer",
+          }}  
+          onClick={handleShowNavigation}>مسیریابی</Button>
+        </div>   }  
+
         {/* <img src='assets/images/profilephoto/newWorker.png' style={{zIndex:1000,  position: "absolute",bottom:0,left:0}} onClick={handleClick} /> */}
       </div>
     );
@@ -204,18 +258,18 @@ function MapComponent({
   };
   console.log("detail", detail);
 
-  const [bardia, setBardia] = useState([]);
+  const [NewImage, setNewImage] = useState([]);
   const [coords, setCoords] = useState(["20.5937", "78.9629"]);
   useEffect(() => {
-    setBardia([0, 0]);
+    setNewImage([0, 0]);
     setCoords([
       savedLatitude ? savedLatitude : 35.735171,
       savedLongitude ? savedLongitude : 51.430122,
     ]);
   }, [savedLatitude, savedLongitude]);
-  console.log("bardia.length", bardia.length);
+  console.log("NewImage.length", NewImage.length);
   const positionFunc = () => {
-    return bardia.length > 0 ? [0, 0] : positionSearch;
+    return NewImage.length > 0 ? [0, 0] : positionSearch;
   };
 
   const getPosition = (data) => {
@@ -250,18 +304,17 @@ function MapComponent({
     setMapPositions((prevPositions) => [...prevPositions, newMarker]);
   };
 
+  const [startPoint, setStartPoint] = useState({
+    lat: 35.73667252844892,
+    lng: 51.4256501197815,
+  });
 
-
-
-
-
-
-
-
-
-
-const [startPoint,setStartPoint]=useState({ lat: 35.7201717, lng: 51.3697583 })
-const [endPoint,setEndPoint]=useState({ lat: 35.749282, lng: 51.450122 })
+  const [endPoint, setEndPoint] = useState({ lat: 35.749282, lng: 51.450122 });
+  useEffect(() => {
+    if (centerMap !== undefined) {
+      setEndPoint({ lat: centerMap[0], lng: centerMap[1] });
+    }
+  }, [centerMap]);
 
   const routingControlRef = useRef(null);
   const [carMarker, setCarMarker] = useState(null);
@@ -294,7 +347,7 @@ const [endPoint,setEndPoint]=useState({ lat: 35.749282, lng: 51.450122 })
   //     setCarMarker(L.marker([startPoint.lat, startPoint.lng], { icon: carIcon }).addTo(map));
   //   }
   // }, [mapRef, routingControlRef, startPoint, endPoint]);
-  
+
   // const navigateTo = (lat, lng, zoom) => {
   //   const map = mapRef.current;
 
@@ -302,9 +355,7 @@ const [endPoint,setEndPoint]=useState({ lat: 35.749282, lng: 51.450122 })
   //     map.setView([lat, lng], zoom);
   //   }
   // };
-  const NavigationControl = () => {
- 
-  };  
+  const NavigationControl = () => {};
   const [userLocation1, setUserLocation1] = useState(null);
   const [isRouteDisplayed, setIsRouteDisplayed] = useState(false);
 
@@ -321,10 +372,10 @@ const [endPoint,setEndPoint]=useState({ lat: 35.749282, lng: 51.450122 })
         waypoints,
         routeWhileDragging: true,
         lineOptions: {
-          styles: [{ color: 'blue', opacity: 0.7, weight: 5 }],
+          styles: [{ color: "blue", opacity: 0.7, weight: 5 }],
         },
         addWaypoints: false,
-        fitSelectedRoutes: 'smart',
+        fitSelectedRoutes: "smart",
       }).addTo(map);
 
       const carIcon = L.icon({
@@ -333,26 +384,24 @@ const [endPoint,setEndPoint]=useState({ lat: 35.749282, lng: 51.450122 })
         iconAnchor: [16, 16],
       });
 
-      setCarMarker(L.marker([startPoint.lat, startPoint.lng], { icon: carIcon }).addTo(map));
-    
+      setCarMarker(
+        L.marker([startPoint.lat, startPoint.lng], { icon: carIcon }).addTo(map)
+      );
     }
   };
-
-  
 
   function SetViewOnClick({ coords }) {
     const map = useMap();
-    map.setView(userLocation1?userLocation1:coords, map.getZoom());
-
+    map.setView(userLocation1 ? userLocation1 : coords, map.getZoom());
     return null;
   }
-  const handleStartButtonClick = () => {
-    // Check if the route is already displayed
-    if (true) {
-      // Fetch and display the route
-      fetchAndDisplayRoute();
-    }
-  };
+
+  useEffect(()=>{
+
+  },[])
+      // const { showNavigation } = useContext(AppContext);
+
+  
 
 
 
@@ -361,10 +410,10 @@ const [endPoint,setEndPoint]=useState({ lat: 35.749282, lng: 51.450122 })
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-  
+
           // Update user location
           setUserLocation1([latitude, longitude]);
-          setStartPoint({lat:latitude,lng:longitude})
+          setStartPoint({ lat: latitude, lng: longitude });
           // Update car marker position
           if (carMarker) {
             carMarker.setLatLng([latitude, longitude]);
@@ -375,20 +424,22 @@ const [endPoint,setEndPoint]=useState({ lat: 35.749282, lng: 51.450122 })
               iconSize: [32, 32],
               iconAnchor: [16, 16],
             });
-  
+
             // Create a new car marker if it doesn't exist
-            setCarMarker(L.marker([latitude, longitude], { icon: carIcon }).addTo(map));
+            setCarMarker(
+              L.marker([latitude, longitude], { icon: carIcon }).addTo(map)
+            );
           }
         },
         (error) => {
-          console.error('Error getting user location:', error.message);
+          console.error("Error getting user location:", error.message);
         }
       );
     };
-  
+
     // Update user location and car marker every 5000 milliseconds (5 seconds)
     const locationInterval = setInterval(updateLocation, 5000);
-  
+
     // Clear the interval and remove the car marker on component unmount
     return () => {
       clearInterval(locationInterval);
@@ -397,7 +448,8 @@ const [endPoint,setEndPoint]=useState({ lat: 35.749282, lng: 51.450122 })
       }
     };
   }, [carMarker]); // Dependency array includes carMarker
-  
+  const location = useLocation();
+  console.log("window.location.pathname", location.pathname == "/home");
   return (
     <MapContainer
       center={coords}
@@ -464,7 +516,9 @@ const [endPoint,setEndPoint]=useState({ lat: 35.749282, lng: 51.450122 })
         )}
         {/* <button onClick={this.handleSearchSubmit}>Search</button> */}
       </div>
-      <Polyline pathOptions={limeOptions} positions={polyline} />
+      {location.pathname == "/home" && (
+        <Polyline pathOptions={limeOptions} positions={polyline} />
+      )}
 
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -505,7 +559,7 @@ const [endPoint,setEndPoint]=useState({ lat: 35.749282, lng: 51.450122 })
           </Popup>
         </Marker>
       )} */}
-      {true ? (
+      {!centerMap && location.pathname == "/home" ? (
         <MarkerClusterGroup>
           {positions?.map((el, index) => (
             <Marker key={index} position={el}></Marker>
@@ -513,31 +567,24 @@ const [endPoint,setEndPoint]=useState({ lat: 35.749282, lng: 51.450122 })
         </MarkerClusterGroup>
       ) : (
         <MarkerClusterGroup>
-          {centerMap?.map((el, index) => (
-            <Marker key={index} position={el} icon={blueDotIcon}></Marker>
-          ))}{" "}
+          <Marker position={centerMap}></Marker>
         </MarkerClusterGroup>
       )}
       <LocateControl />
-
-
-
-
 
       {userLocation && (
         <Marker position={userLocation}>
           <Popup>Your Location</Popup>
         </Marker>
       )}
+
+
       {/* <Marker position={[startPoint.lat, startPoint.lng]}>
         <Popup>Start Point</Popup>
       </Marker> */}
-
-      <Marker position={[endPoint.lat, endPoint.lng]}>
-        <Popup>End Point</Popup>
-      </Marker>
-      <Button style={{zIndex:1000000000}} onClick={handleStartButtonClick}>Start</Button>
-
+            {/* <Button style={{ zIndex: 1000000000 }} onClick={handleStartButtonClick}>
+        Start
+      </Button> */}
     </MapContainer>
   );
 }
