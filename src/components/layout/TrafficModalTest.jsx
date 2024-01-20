@@ -405,6 +405,8 @@ export const TrafficModalTest = ({
             ref={videoRef}
             srcobject={null}
             autoPlay
+            style={{ transform: isFrontCamera ? 'scaleX(-1)' : 'scaleX(-1)' }}
+
           />
           {cameraButton && (
             <button

@@ -274,6 +274,7 @@ function DrawImage({
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
+              
             />
           </div>
         ) : (
